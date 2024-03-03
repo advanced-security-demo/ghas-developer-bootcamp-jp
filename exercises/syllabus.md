@@ -1,122 +1,109 @@
 
 # GitHub Advanced Security for developers workshop
 
-## Syllabus
+## シラバス
 
 ### Day 1
 
-#### 1. What is GitHub Advanced Security? 
-What is GitHub's approach to the current software security challenges the industry is facing. Overview of what are GitHub Advanced Security consists of and how does it fit in the overall GitHub as platform.
+#### 1. GitHub Advanced Securityとは
+業界が直面している現在のソフトウェアセキュリティの課題に対するGitHubのアプローチとは。GitHub Advanced Securityの概要と、プラットフォームとしてのGitHub全体における位置づけ。
 
-Intros - 5 mins
-Presentation - 10 mins
+イントロ - 5分
+プレゼンテーション - 10分
 
-**Time: 15 minutes**
+**時間：15分
 
-#### 2. GitHub Advanced Security Licensing
-In this section we look into the GHAS licensing model and discuss possible license consumption situation with allocations and releasing of licenses that GHAS users show be aware of.
-
-
-Presentation - 5 mins
-Demo 1 - Show current license usage/ what is the active committer count/ what is the license allocation. (5 minutes)
-
-**Time: 10 minutes**
-
-#### 3. GHAS Enablement
-Learn how do you manage GHAS policy on an enterprise level. Learn how GHAS enablement on organization and repository level means. Go over the available out of the box options for enablement and tracking coverage.
-Conclude with the approach that NBS is taking to making GHAS available and activated to development teams/repos and demonstrate the short-/mid-term IssueOps solutions that will be serving Development teams to onboard and get started with GHAS 
-
-Presentation - 10 mins
-Demo 2 - Control GHAS Enterprise Level policy (5 mins)
-Demo 3 - Onboarding process at NBS issueOps (5 mins)
-Exercise 1 - Enabling GHAS on your repository (10 minutes)
-
-**Time: 30 minutes
-
-Feedback:
-- Show whats coming out and how it works
-- IssueOps just a demo from NBS side. Short to medium term solution;
+#### 2. GitHub Advanced Security のライセンス
+このセクションでは、GHAS のライセンスモデルを調べ、GHAS ユーザーが注意すべきライセンスの割り当てについて、ライセンスの消費状況について説明します。
 
 
-#### 4. How does it work?
+プレゼンテーション - 5分
+デモ 1 - 現在のライセンス使用状況/アクティブなコミッター数/ライセンスの割り当てを表示します。(5分)
 
-Explain the suggested design of most scans and security checks happen in PR and how does that fit into the developer workflow. Discuss the reasons, and why the benefits outweigh the pitfalls of this approach.
+**時間：10分
 
-Go over each of the GHAS products and explain how does it work:
-- Dependancy Graph, Dependabot, Dependancy Review. We will get familiar with the available features and products but we will not go too much into the depths of them. 
+#### 3. GHAS の有効化
+企業レベルでの GHAS ポリシーの管理方法について学びます。組織やリポジトリレベルでのGHASの有効化について学びます。GHASを有効化し、カバレッジを追跡するための、すぐに利用可能なオプションについて説明します。
+最後に、開発チームやリポジトリでGHASを利用可能にし、有効化するために取っているアプローチと、開発チームがGHASに参加し、GHASを使い始めるための短期/中期的なIssueOpsソリューションについて説明します。
 
-- Secret Scanning and Secret Scanning Custom Patterns. We will learn how secret scanning works under the hood and what you as Ops Engineer can and cannot influence or control. We will practically also get familiar with writing custom patterns and learn how to debug them.
+プレゼンテーション - 10分
+デモ2 - GHASエンタープライズレベルポリシーの制御（5分）
+デモ3 - IssueOpsでのオンボーディングプロセス（5分）
+Exercise1 - リポジトリでGHASを有効にする (10分)
 
-- Code Scanning, CodeQL CLI, CodeQL in CI. We will dig into what the NBS implementation in CBJ and GitHub Actions of CodeQL scans will be. We will practically setup GitHub Actions to analyze a multi-language project and understand what complexities and challenges such situations might bring.
+**時間：30分
 
-Presentation - 20 minutes
-Optional Exercise - Bring GHAS to your IDE (5 mins)
-Exercise 2 - Dependabot (10 minutes)
-Exercise 3 - Dependancy Review (15 mins)
-Exercise 4 - Secret Scanning and Push Protection (10 mins)
-Exercise 5 - Secret Scanning - Custom Secret Scanning Pattern + Push protection (15 mins)
+#### How does it work?
 
-**Time: 80 minutes**
+GHASの各製品について説明し、それがどのように機能するかを説明します：
+- Dependancy Graph、Dependabot、Dependancy Reviewに関しては、利用可能な機能と製品に慣れますが、Deep Diveセッションではありません。
+
+- シークレットスキャンとシークレットスキャンカスタムパターン。シークレットスキャンがボンネットの中でどのように機能するのか、そしてOps Engineerとしてあなたが影響したりコントロールしたりできること、できないことを学びます。また、カスタムパターンの書き方やデバッグ方法についても学びます。
+
+- コードスキャン、CodeQL CLI、CIにおけるCodeQL。CodeQLスキャンのGitHub Actionsについて掘り下げます。実際にGitHub Actionsをセットアップして多言語プロジェクトを分析し、そのような状況がどのような複雑さと課題をもたらすかを理解します。
+
+プレゼンテーション - 20分
+オプショナルエクササイズ - IDEにGHASを導入する (5分)
+Exercise2 - Dependabot (10分)
+Exercise3 - Dependency Review(15分)
+Exercise4 - Secret ScanningとPush Protection (10分)
+Exercise5 - Secret Scanning - Custom Secret Pattern + Push Protection (15分)
+
+**時間：80分
 
 ---
 
 ### Day 2
 
 
-#### 4. How does it work? (Contd.)
+#### 4.How does it work?(続き)
 
-Explain the suggested design of most scans and security checks happen in PR and how does that fit into the developer workflow. Discuss the reasons, and why the benefits outweigh the pitfalls of this approach.
+（続き）
 
-Go over each of the GHAS products and explain how does it work:
-- Dependancy Graph, Dependabot, Dependancy Review. We will get familiar with the available features and products but we will not go too much into the depths of them. 
+プレゼンテーション - 10分
+Exercise6 - コードスキャンとCodeQL (15分)
+Exercise7 - CodeQL設定のカスタマイズとカスタムクエリ (15分)
+番外編 - CodeQLワークフローの最適化（10分）
 
-- Secret Scanning and Secret Scanning Custom Patterns. We will learn how secret scanning works under the hood and what you as Ops Engineer can and cannot influence or control. We will practically also get familiar with writing custom patterns and learn how to debug them.
+**所要時間：45分
 
-- Code Scanning, CodeQL CLI, CodeQL in CI. We will dig into what the NBS implementation in CBJ and GitHub Actions of CodeQL scans will be. We will practically setup GitHub Actions to analyze a multi-language project and understand what complexities and challenges such situations might bring.
+#### 5. アクセス、通知、アラート
 
+セキュリティ機能と GHAS アラートへのアクセス要件について調べ、これをどのように管理する かを含みます。この要件が、GitHub の標準的な事前定義ロールにどのようにマッピングされるかを理解する： Read、Triage、Write、Maintain、Admin だけでなく、特別な Security Manager ユーザーロールにも対応します。事前に定義された要件に従って、Security Champions のカスタムロールを作成する可能性を調べます。
 
-Presentation - 10 minutes
-Exercise 6 - Code Scanning and CodeQL (15 mins)
-Exercise 7 - CodeQL config customization and custom query (15 mins)
-Extra - CodeQL workflow optimization (10 mins)
+さらに、GHAS製品からどのような通知が誰に送られるかを調査し、何がデフォルトで提供され、何がさらに設定できるかを理解します。
+最後に、通知に関するいくつかの検討事項や、通知が殺到するような状況を回避する方法、基本的に通知がユーザーに逆効果になるような状況を回避する方法と、それを管理する方法について説明します。
 
-**Time: 45 minutes**
+プレゼンテーション - 10分
+デモ3 - GHASの通知と個人設定 (5分)
+デモ4 - セキュリティ機能コンテキストにおけるデフォルトのユーザー役割；カスタム役割の定義；セキュリティマネージャーの役割（10分）
 
-#### 5. Access, Notifications and alerts
+**時間：25分
 
-Look into what access requirements to the security features and GHAs alerts including how do you manage this. Understand how this the requirements map to the the standard GitHub pre-defined roles: Read, Triage, Write, Maintain and Admin, but also, the special Security Manager user role. We will exercise the possibilities for creating custom roles for Security Champions as per predefined requirements. 
+#### 6. 統合 - GHAS APIとWebhooks
 
-Further, we will investigate what notifications are sent out by the GHAS products and to whom and understand what comes by default vs what could people further configure.
-Lastly, we will discuss some considerations around notifications and how to avoid situations where people get flooded and essentially notifications hove the counter effect to users and how they can manage that. 
+利用可能な監査ログ、GHAS API、Webhooks を通して、GHAS と連携する方法について学びます。
 
-Presentation - 10 mins
-Demo 3 - GHAS notifications and personal configurations (5 mins)
-Demo 4 - Default user roles in Security Features context; Defining a custom role; Security manager role (10 mins)
+GHAS APIとWebhookがGHASに提供するものと、監査ログに記録されるGHASイベントの詳細を見ていきます。私たちは、GHASとCode Scanningの下で他のセキュリティツールを統合する一般的なユースケースに焦点を当て、Code Scanningを開発者がすべての（静的な）セキュリティ分析結果を見つけることができる一つの中心的な場所にすることを目標にします。
 
-**Time: 25 minutes**
-
-#### 6. Integrations - GHAS API and Webhooks
-
-Learn about ways to interact with GHAS outside of what is coming of the box through the available audit log, GHAS APIs and webhooks. 
-
-We will look in detail what the GHAS APIs and Webhook provide around GHAS and what GHAS events are logged into the audit log. We will focus on a common use case to integrate other security tools under GHAS and Code Scanning with a goal to make Code Scanning one central spot where developers can find all there (static) security analysis results. 
-
-Additionally, we will also integrate another PR check based on GHAS secret scanning alerts by leveraging the APIs
+さらに、APIを活用することで、GHASのシークレットスキャンのアラートに基づいたPRチェックも統合します。
 
 
-Presentation - 20 minutes
-Exercise 8 - Run tool Checkov in PR and integrate in Code Scanning (15 mins)
-Exercise 9 - Introduce Secret Scanning Review action in PR (10 minutes)
+プレゼンテーション - 20分
+Exercise8 - PRでツールCheckovを実行し、コードスキャンに統合する
+Exercise9 - PRでのシークレットスキャンレビューアクションの導入 (10分)
 
-**Time: 75 minutes**
+**時間：75分
 
 
-#### 7. Troubleshooting GHAS
+#### 7. GHASのトラブルシューティング
 
-In this last part of the workshop we will look at most common issues with GHAS adoption. We will start with general service health-checks you could do but focus on Code Scanning and CodeQL. Go over what are common problems that you might expect around CodeQL runs and configurations and how you go about troubleshooting them. 
-We will look at what a CodeQL debug package contains and how you can use that to triage the problem.
+このワークショップの最後のパートでは、GHASを採用する際に最も一般的な問題を取り上げます。一般的なサービスのヘルスチェックから始めますが、Code ScanningとCodeQLに焦点を当てます。CodeQLの実行と構成に関して予想される一般的な問題と、そのトラブルシューティング方法について説明します。
+CodeQLのデバッグ・パッケージには何が含まれ、どのように問題のトリアージに使用できるかを見ていきます。
 
-Presentation - 15 mins
-Exercise 10 - Generate CodeQL debug and identify a problem (15 mins)
+プレゼンテーション - 15分
+Exercise10 - CodeQLデバッグの生成と問題の特定 (15分)
 
-**Time: 50 minutes**
+**時間：50分
+
+(時間は目安です。参加者のみなさまの状況によりアジャストいたします。)

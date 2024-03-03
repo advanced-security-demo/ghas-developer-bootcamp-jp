@@ -20,11 +20,11 @@
 - デフォルトのパックに含まれるクエリは、アーキテクチャに対して偽陽性（false positive）を生成するため、除外する。
 - プロジェクト用に作成されたカスタムクエリを含める。
 
-1.  Create the file `.github/codeql/codeql-config.yml` and enable the `security-and-quality` suite.
+1.  `.github/codeql/codeql-config.yml` ファイルを作成し、`security-and-quality` スイートを有効にします.
 
     **Hints**
 
-    1. A configuration file contains a key `queries` where you can specify additional queries as follows
+    1. 設定ファイルには `queries` というキーがあり、以下のように追加のクエリを指定することができます。
 
         ```yaml
         name: "My CodeQL config"
@@ -32,22 +32,22 @@
         queries:
             - uses: <insert your query suite>
         ```
-2. Enable your custom configuration in the code scanning workflow file `.github/codeql/codeql-config.yml`
+2. Code scanning workflow file `.github/codeql/codeql-config.yml` でカスタム設定を有効にします。
 
     **Hints**
 
-    1. The `init` action supports a `config-file` parameter to specify a configuration file.
+    1. `init` アクションは設定ファイルを指定するための `config-file` パラメータをサポートしています。
 
-3. After the code scanning action has completed, are there new code scanning results?
+3. コードスキャンが完了した後、新しいコードスキャン結果は存在するでしょうか。
 
-### Adding your own code scanning suite to exclude rules
+### 除外ルールに独自のコードスキャンスイートを追加
 
-The queries that are executed is determined by the code scanning suite for a target language.
-You can create your own code scanning suite to change the set of included queries.
+実行されるクエリーは、ターゲット言語のコード・スキャン・スイートによって決定されます。
+独自のコードスキャンスイートを作成して、含まれるクエリーのセットを変更することができます。
 
-By creating our own [code scanning suite](https://codeql.github.com/docs/codeql-cli/creating-codeql-query-suites/), we can exclude the rule that caused the false positive in our Java project.
+独自の[コードスキャンスイート](https://codeql.github.com/docs/codeql-cli/creating-codeql-query-suites/)を作成することで、Javaプロジェクトで誤検出を引き起こしたルールを除外することができます。
 
-1. Create the file `custom-queries/code-scanning.qls` with the contents
+1. `custom-queries/code-scanning.qls` ファイルを下記のコンテンツを含んで作成します。
 
     ```yaml
     # Reusing existing QL Pack
@@ -64,10 +64,10 @@ By creating our own [code scanning suite](https://codeql.github.com/docs/codeql-
         - <insert rule id of false positive>
     ```
 
-2. Configure the file `.github/codeql/codeql-config.yml` to use our suite.
+2. `.github/codeql/codeql-config.yml` ファイルをスイートに構成します。
 
-    **Hint**: We are now running both the default code scanning suite and our own custom suite.
-    To prevent CodeQL from resolving queries twice, disable the default queries with the option `disable-default-queries: true`
+    **Hint**: 現在、デフォルトのコードスキャンスイートと独自のカスタムスイートの両方を実行しています。
+    CodeQLがクエリーを2回解決しないようにするには、`disable-default-queries: true`オプションでデフォルトのクエリーを無効にします。
 
 <details>
 <summary>Solution</summary>
@@ -82,11 +82,11 @@ queries:
 ```
 </details>
 
-3. After the code scanning action has completed, is the false positive still there?
+3. コードスキャンが完了した後、誤検出はまだありますか。
 
-4. Try running additional queries with `security-extended` or `security-and-quality`. What kind of results do you see?
+4. `security-extended`または`security-and-quality`で追加のクエリを実行してみてください。どのような結果が出ますか？
 
-**Note**: If you want to use these additional query suites and the custom query suite you've made, make sure to import the proper query packs to continue to exclude certain queries.
+**注意***： これらの追加クエリスイートや作成したカスタムクエリスイートを使用したい場合は、特定のクエリを除外し続けるために適切なクエリパックをインポートしてください。
 
 <details>
 <summary>Solution</summary>
@@ -107,7 +107,7 @@ queries:
 ```
 </details>
 
-5. Try specifying directories to scan or not to scan. Note that this is only supported for interpreted languages, such as javascript/typescript, python, ruby, etc. Why would you include this in the configuration?
+5. スキャンするディレクトリとしないディレクトリを指定してみてください。これは、javascript/typescript、python、rubyなどのインタプリタ型言語でのみサポートされていることに注意してください。なぜこれを設定に含めるのでしょうか。
 
 <details>
 <summary>Solution</summary>
@@ -125,13 +125,13 @@ paths-ignore:
 ```
 </details>
 
-### Understanding how to add a custom query
+### カスタムクエリの追加方法を理解する
 
-One of the strong suites of CodeQL is its high-level language QL that can be used to write your own queries.
-_If you have experience with CodeQL and have come up with your own query so far, take this time to commit those changes and see if any alerts were produced._
-Regardless of experience, the next steps show you how to add one.
+CodeQLの強力なスイートの1つは、独自のクエリを書くために使用できる高レベル言語QLです。
+_CodeQLを使用した経験があり、これまでに独自のクエリを作成したことがある場合は、この機会にそれらの変更をコミットし、アラートが生成されたかどうかを確認してください。_
+経験の有無にかかわらず、次のステップではアラートを追加する方法を説明します。
 
-1. Make sure to create a QL pack file. For example, `custom-queries/go/qlpack.yml` with the contents
+1. QLパックファイルを必ず作成してください。例えば、`custom-queries/go/qlpack.yml`とします。
 
     ```yaml
     name: my-go-queries
@@ -140,7 +140,7 @@ Regardless of experience, the next steps show you how to add one.
         - codeql-go
     ```
 
-    This file creates a [QL query pack](https://help.semmle.com/codeql/codeql-cli/reference/qlpack-overview.html) used to organize query files and their dependencies.
+    このファイルは、クエリーファイルとその依存関係を整理するために使用される[QLクエリーパック](https://help.semmle.com/codeql/codeql-cli/reference/qlpack-overview.html)を作成します。
 
 2. Then, create the actual query file. For example, `custom-queries/go/jwt.ql` with the contents
 
@@ -181,9 +181,9 @@ Regardless of experience, the next steps show you how to add one.
         )
     select f, "This function should be using jwt.SigningMethodHMAC"
     ```
-3. Then, add the query to the CodeQL configuration file `.github/codeql/codeql-config.yml`
+3. 次に、CodeQL設定ファイル`.github/codeql/codeql-config.yml`にクエリを追加します。
 
-**Hint** The `uses` key accepts repository relative paths.
+**Hint**  `uses` キーはリポジトリの相対パスを受け付けます。
 
 <details>
 <summary>Solution</summary>
@@ -203,7 +203,7 @@ queries:
 
 ### _Stretch Exercise: Adding a custom query from an external repository_
 
-How would you incorporate that query/queries from other repositories?
+他のリポジトリからのクエリをどのように組み込むのでしょうか。
 
 <details>
 <summary>Solution</summary>
@@ -220,17 +220,17 @@ queries:
 ```
 </details>
 
-### Extra - CodeQL workflow optimization (10 mins)
+### 番外編 - CodeQLワークフローの最適化 (10分)
 
-In this exercise, we will optimize the CodeQL workflow we created to run only when code changes happen and shorten the runtime on. 
+このエクササイズでは、作成したCodeQLワークフローをコード変更時にのみ実行するように最適化し、実行時間を短縮します。
 
-To do this you will need to:
+そのためには以下のことが必要です：
 
-- Add a `paths` and `paths-ignore` filter to the workflow to only run when code changes happen
-- Add a `cache` step to the workflow to cache the dependencies between runs.
+- ワークフローに `paths` と `paths-ignore` フィルタを追加し、コード変更時にのみ実行するようにする。
+- ワークフローに `cache` ステップを追加し、実行時に依存関係をキャッシュする。
 
-Using the information provided on [customizing advanced setup](https://docs.github.com/en/enterprise-cloud@latest/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning) change the triggers for your Codeql workflow to not run when `.md` and `.txt` files are changed.
-We also want to only trigger the workflow when code changes in `authn-service`, `frontend`, `gallery-service` and `storage-service` happen. To do this, we will use the `paths` and `paths-ignore` filters.
+[高度なセットアップのカスタマイズ](https://docs.github.com/en/enterprise-cloud@latest/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning)で提供されている情報を使用して、`.md`ファイルと`.txt`ファイルが変更されたときに実行されないように、Codeqlワークフローのトリガーを変更します。
+また、`authn-service`、`frontend`、`gallery-service`、`storage-service`のコードが変更されたときのみワークフローを起動するようにするためには、 `paths` フィルタと `paths-ignore` フィルタを使用します。
 
 <details>
 <summary>Solution</summary>
@@ -261,9 +261,9 @@ on:
 ```
 </details>
 
-Next, we will add a `cache` steps to the workflow to cache the dependencies between runs for the Java and Go components. This will speed up the workflow execution time. To do this, you can use the `actions/setup-java` and `actions/setup-go` actions.
+次に、ワークフローに `cache` ステップを追加し、Java と Go コンポーネントの実行間の依存関係をキャッシュします。これにより、ワークフローの実行時間が短縮されます。これを行うには、`actions/setup-java` アクションと `actions/setup-go` アクションを使用します。
 
-As you have learned before, you can only condition these setups to the appropriate jobs. To do this, you can use the `if` conditional on the job level.
+前に学んだように、これらのセットアップを適切なジョブにのみ適用することができます。これを行うには、ジョブレベルで `if` 条件を使用します。
 
 <details>
 <summary>Solution</summary>
@@ -290,16 +290,16 @@ As you have learned before, you can only condition these setups to the appropria
 
 ## Integrations - GHAS API and Webhooks
 
-### Exercise 8 - Run tool Checkov in PR and integrate in Code Scanning (15 mins)
+### Exercise 8 - PRでツールCheckovを実行し、ode Scanningに統合する。  (15分)
 
-In this exercise, we will integrate another security testing tool's results into Code Scanning. The choice of a tool is Checkov. We will create a new GitHub Action workflow where we will run Checkov scan against our codebase and report back the results to GitHub by calling the Code Scanning API.
+この演習では、別のセキュリティテストツールの結果をCode Scanningに統合します。選んだツールは Checkov です。新しい GitHub Action ワークフローを作成し、そこでコードベースに対して Checkov スキャンを実行し、Code Scanning API を呼び出して結果を GitHub に報告します。
 
-### Create a new workflow
+### ワークフローの新規作成
 
-You need to create a new workflow file that will do the analysis. To do this, you can navigate to the `Actions` tab of your repository and select `New workflow`. You will be presented with a list of templates.
-We will not be using already existing workflow on the marketplace in this exercise, so you will need to select `Skip this and set up a workflow yourself`.
+分析を行う新しいワークフローファイルを作成する必要があります。これを行うには、リポジトリの `Actions` タブに移動し、`New workflow` を選択します。テンプレートのリストが表示されます。
+この演習ではマーケットプレイスにある既存のワークフローは使用しませんので、`Skip this and set up a workflow yourself`を選択する必要があります。
 
-Navigate to [bridgecrewio/checkov-action](https://github.com/bridgecrewio/checkov-action) and copy the example config. Rename the workflow file to `checkov.yml` and paste the content into the editor and commit the file to your repository.
+[bridgecrewio/checkov-action](https://github.com/bridgecrewio/checkov-action)に移動し、サンプルのコンフィグをコピーします。ワークフローファイルの名前を `checkov.yml` に変更し、内容をエディタに貼り付けて、ファイルをリポジトリにコミットします。
 
 <details>
 <summary>Solution</summary>
@@ -356,11 +356,11 @@ jobs:
 ```
 </details>
 
-After committing the file you should see a new workflow running in the `Actions` tab. 
+ファイルをコミットすると、`Actions`タブに新しいワークフローが表示されます。
 
-### Trigger a new checkov run
+### new checkov runをトリガー
 
-To trigger a new checkov run you can create a new branch and edit the `terraform/aws/lambda.tf` file and add the following snippet:
+新しいcheckovの実行をトリガーするには、新しいブランチを作成して`terraform/aws/lambda.tf`ファイルを編集し、以下のスニペットを追加します：
 
 ```terraform
 resource "aws_iam_role" "iam_for_lambda" {
@@ -424,19 +424,19 @@ resource "aws_lambda_function" "analysis_lambda" {
 }
 ```
 
-Next, go ahead and raise a PR against the default branch and check if that will trigger an analysis.
+次に、デフォルトのブランチに対してPRを作成し、それが分析をトリガーするかどうかを確認します。
 
 ---
 
-### Exercise 9 -  Integrate Secret Scanning alerts in PR (10 mins)
+### Exercise 9 -  PRへSecret Scanning alertsを統合 (10分)
 
-Similar to the previous Exercise we will now integrate the [advanced-security/secret-scanning-action](https://github.com/advanced-security/secret-scanning-review-action). This time we will not be doing any local static checks against a codebase in the workflow but rather fetch information from the available GHAS APIs and display the results in the PR.
+前回のExerciseと同様に、今回は[advanced-security/secret-scanning-action](https://github.com/advanced-security/secret-scanning-review-action)を統合します。今回は、ワークフローでコードベースに対してローカルの静的チェックを行うのではなく、利用可能なGHAS APIから情報を取得し、その結果をPRに表示します。
 
-### Create a new workflow
+### ワークフローの新規作成
 
-Following the same steps, create a new workflow file that will run the [advanced-security/secret-scanning-review-action](https://github.com/advanced-security/secret-scanning-review-action) action.
+同じ手順で、[advanced-security/secret-scanning-review-action](https://github.com/advanced-security/secret-scanning-review-action) アクションを実行する新しいワークフローファイルを作成します。
 
-As also pointed out in the `README` of the `advanced-security/secret-scanning-review-action`, you will have to create a new GitHub token with the `repo` scope and add it as a secret to your repository with a name `SECRET_SCAN_REVIEW_GITHUB_TOKEN`.
+`advanced-security/secret-scanning-review-action` の `README` にもあるように、`repo` スコープで新しい GitHub トークンを作成し、`SECRET_SCAN_REVIEW_GITHUB_TOKEN` という名前でリポジトリにシークレットとして追加します。
 
 <details>
 <summary>Solution</summary>
@@ -458,73 +458,77 @@ jobs:
 ```
 </details>
 
-#### Trigger an action run in PR
+#### PRでのaction run のトリガー
 
-To trigger a new checkov run you can create a new branch and edit the `authn-service/.env` file and add the following secret `STRIPE_DEV="sk_live_devboxbcct1DfwS2ClCIKlbT"`
-Since you have Push Protection enabled go ahead and bypass it with `I'll fix it later` reason.
+新しいcheckovの実行をトリガーするには、新しいブランチを作成し、`authn-service/.env`ファイルを編集して、次のシークレット`STRIPE_DEV="sk_live_devboxbcct1DfwS2ClCIKlbT"`
+を追加します。
+プッシュプロテクションが有効になっているので、`I'll fix it later`を理由にプッシュプロテクションをバイパスします。
 
-Raise a PR and check if that will trigger an analysis and observe the results.
+PRを発行し、分析がトリガーされるかどうかを確認し、結果を観察してください。
 
 ---
 
-### Exercise 10 - Generate CodeQL debug and identify a problem (15 mins)
+### Exercise 10 - CodeQLデバッグの生成と問題の特定 (15分)
 
-In this exercise, we will generate and look at options for you to debug a Code Scanning - CodeQL debug analysis run. We will generate a CodeQL Code Scanning debug run file and understand the structure of a debug artifact. Then, we will also look at a few debug artifacts to identify the problems and, lastly, how we can use the `Tool Status` to understand the status of the CodeQL analysis.
+この実習では、Code Scanning - CodeQL debug analysis runをデバッグするためのオプションを生成し、見ていきます。CodeQL Code Scanningデバッグ実行ファイルを生成し、デバッグ成果物の構造を理解します。また、いくつかのデバッグ成果物を見て問題を特定し、最後に`Tool Status`を使用してCodeQL解析のステータスを理解します。
 
-### Enabling CodeQL Debug mode
+### CodeQLデバッグモードの有効化
 
-First, navigate to the Actions tab on your repository and select the `CodeQL` workflow.
+まず、リポジトリのActionsタブに移動し、`CodeQL`ワークフローを選択します。
 
-You can re-run a CodeQL analysis in debug mode by selecting a CodeQL analysis workflow run, then clicking `Re-run all jobs` in the top right of the page and selecting `Enable debug logging` before hitting the `Re-run jobs` button. This will trigger a new CodeQL analysis run after which the debug data will be uploaded as Actions artifact. After the run has completed, you should see a list of artifacts `debug-artifacts-*`. Go ahead and download the `debug-artifacts-java`.
+デバッグモードでCodeQL分析を再実行するには、CodeQL分析ワークフローの実行を選択し、ページ右上の`Re-run all jobs`をクリックし、`Re-run jobs`ボタンを押す前に`Enable debug logging`を選択します。これにより、新しいCodeQL分析が実行され、デバッグデータがアクションアーティファクトとしてアップロードされます。実行が完了すると、アーティファクトのリスト `debug-artifacts-*` が表示されます。先に進み、`debug-artifacts-java`をダウンロードします。
 
-The other option to enable CodeQL debug mode in the Action is by providing `debug: true` configuration option. This is useful when you want to enable debug mode for a workflow where you expect it to fail, and you don't want to wait for it to finish before re-running it in debug mode. The end result is the same.
+ActionでCodeQLのデバッグモードを有効にするもう1つの方法は、`debug: true`設定オプションを指定することです。これは、失敗することが予想されるワークフローでデバッグモードを有効にし、デバッグモードで再実行する前に終了するのを待ちたくない場合に便利です。最終的な結果は同じです。
 
-### Understanding the debug artifact
+### デバッグアーティファクトについて
 
-The debug artifact is a zip file that contains a number of files and directories. The most important ones are:
+デバッグアーティファクトはZIPファイルであり、いくつかのファイルとディレクトリが含まれています。最も重要なものは下記のとおりです。
 
 - `java/log/`
-  - `ext/*` - a directory containing the CodeQL extractor configuration, environment variables, etc.
-  - `log/database-*` - files containing logs from the CodeQL database-related operations - creation, initialization, etc.
-  - `log/javac-*` - files containing logs from the compilation and extractor process.
-- `log` - logs from the build tracker and database initialization.
-- `java.sarif` - the results of the analysis in SARIF format.
-- `db-java.zip` - the CodeQL database that was created and used for the analysis. This is the most important file as it contains all the information about the analysis. Be aware when sharing this archive as it also contains the source code of your repository.
+  - `ext/*` - CodeQLエクストラクタの設定、環境変数などを含むディレクトリ
+  - `log/database-*` - CodeQLデータベース関連の操作（作成、初期化など）のログを含むファイル
+  - `log/javac-*` - コンパイルおよび抽出処理からのログを含むファイル
+- `log` - ビルドトラッカーとデータベースの初期化のログを含むファイル
+- `java.sarif` - SARIF 形式の解析結果
+- `db-java.zip` - 分析に作成＆使用されたCodeQLデータベース。分析に関するすべての情報が含まれているため、最も重要なファイルです。リポジトリのソースコードも含まれているため、このアーカイブを共有する際には注意してください。
 
-### Investigating the CodeQL debug artifact
+### CodeQLデバッグアーティファクトの調査
 
-In this exercise, we will look at a few debug artifacts and try to identify the problem.
+この実習では、いくつかのデバッグアーティファクトを見て、問題の特定を試みます。
 
-Go ahead and download the debug artifacts from the following link: [code-debug-artifacts-java](https://gh.io/ghas-training-debug-artifacts)
+以下のリンクからデバッグアーティファクトをダウンロードしてください： [code-debug-artifacts-java](https://gh.io/ghas-training-debug-artifacts)
 
-Using the artifact provided, can you answer the following questions:
+提供されたアーティファクトを使用して、以下の質問に答えることができますか：
 
-- Which CodeQL CLI version was used for the analysis?
-- What type of codebase was the analysis run on?
-- Was the analysis completed successfully? If not, what was the reason?
-- Can you identify which CodeQL queries were configured for this analysis?
+- 解析に使用したCodeQL CLIのバージョンは。
+- 解析はどのようなコードベースで実行されましたか。
+- 解析は正常に完了しましたか？完了しなかった場合、その理由は何ですか。
+- この解析のためにどの CodeQL クエリーが構成されたかを特定できますか。
 
-Hint: Look into the `db-cpp-partial.zip` file
+ヒント：`db-cpp-partial.zip`ファイルを見てください。
 
 <details>
 <summary>Solution</summary>
-- Which CodeQL CLI version was used for the analysis?
+- 解析に使用したCodeQL CLIのバージョンは。
     - `CodeQL CLI version: 2.15.1`
-- What type of codebase was the analysis run on?
+- 解析はどのようなコードベースで実行されましたか。
     - `C or Cpp`, as can be guessed from the filename, but also the extractor used, or the `codeql-database.yml` file.
-- Was the analysis completed successfully? If not, what was the reason?
+- 解析は正常に完了しましたか？完了しなかった場合、その理由は何ですか。
     - No, the analysis failed because `No supported build system detected`, as it can be seen in the extractor diagnostic message.
     - Digging further in, we can also see that there were indeed empty source directories without code or build systems.
-- The files `config-queries.qls` give us the list of queries that were configured for this analysis.
+- この解析のためにどの CodeQL クエリーが構成されたかを特定できますか。
+    - The files `config-queries.qls` give us the list of queries that were configured for this analysis.
 </details>
 
-### Using Tool Status
+### Tool Statusの利用
 
-In the `Security` tab of your repository, under Code Scanning, you have a section called `Tool status`. This is a good place to check if there are any issues with the CodeQL analysis as well as find information about the CodeQL version used for the analysis, CodeQL queries used, etc.
+リポジトリの `Security` タブの Code Scanning の下に、`Tool status` というセクションがあります。これは、CodeQL分析に問題があるかどうかを確認したり、分析に使用されたCodeQLのバージョンや使用されたCodeQLクエリなどの情報を見つけるのに適した場所です。
 
-Navigate to the `Tool status` section and answer the following questions:
+ツールステータス`セクションに移動し、以下の質問に答えてみてください：
 
-- Which CodeQL CLI version was used for the analysis?
-- Which Query Suite was used for the analysis for the last analysis of the Java codebase?
-- How many rules were ran in the last analysis of the Python codebase?
-- Were all the files from the Go component `gallery-service` scanned?
+- 解析に使用したCodeQL CLIのバージョンは。
+- Javaコードベースの最後の解析では、どのQuery Suiteが解析に使用されましたか。
+- Pythonコードベースの最後の解析ではいくつのルールが実行されましたか。
+- Goコンポーネント`gallery-service`のファイルはすべてスキャンされましたか。
+
+
