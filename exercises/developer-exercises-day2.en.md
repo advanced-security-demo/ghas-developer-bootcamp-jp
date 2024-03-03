@@ -8,17 +8,17 @@
 - [ ] [Exercise 9 -  Integrate Secret Scanning alerts in PR](#exercise-9---integrate-secret-scanning-alerts-in-pr-10-mins)
 - [ ] [Exercise 10 - Generate CodeQL debug and identify a problem](#exercise-10---generate-codeql-debug-and-identify-a-problem-15-mins)
 
-## How does it work? (続き)
+## How does it work? (Contd.)
 
-### Exercise 7 - CodeQL構成のカスタマイズ (15分)
+### Exercise 7 - Customizing CodeQL Configuration (15 mins)
 
-デフォルトでは、CodeQLは高品質のセキュリティ結果を提供するクエリを選択して使用します。
-ただし、この動作を次のように変更することもできます：
+By default, CodeQL uses a selection of queries that provide high quality security results.
+However, you might want to change this behavior to:
 
-- コード品質のクエリーを含める。
-- より多くの潜在的な問題を検出するために、S/N比の低い（lower signal to noise ratio）クエリを含める。
-- デフォルトのパックに含まれるクエリは、アーキテクチャに対して偽陽性（false positive）を生成するため、除外する。
-- プロジェクト用に作成されたカスタムクエリを含める。
+- Include code-quality queries.
+- Include queries with a lower signal to noise ratio to detect more potential issues.
+- To exclude queries in the default pack because they generate *false positives* for your architecture.
+- Include custom queries written for your project.
 
 1.  Create the file `.github/codeql/codeql-config.yml` and enable the `security-and-quality` suite.
 

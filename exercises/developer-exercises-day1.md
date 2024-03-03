@@ -2,117 +2,115 @@
 
 ## Overview
 
-- [ ] [Exercise 1 - Enabling GHAS on your repository](#exercise-1---enabling-ghas-on-your-repository-10-minutes)
-- [ ] [Exercise 2 - Dependabot](#exercise-2---dependabot-configuration-10-minutes)
-- [ ] [Exercise 3 - Dependancy Review](#exercise-3---dependancy-review-10-minutes)
-- [ ] [Exercise 4 - Secret Scanning and Push Protection](#exercise-4---secret-scanning-and-push-protection-10-mins)
-- [ ] [Exercise 5 - Secret Scanning - Custom Secret Scanning Pattern + Push protection](#exercise-5---secret-scanning---custom-secret-scanning-pattern--push-protection-15-mins)
-- [ ] [Exercise 6 - Code Scanning and CodeQL](#exercise-6---code-scanning-and-codeql-15-mins)
+- [ ] Exercise 1 - リポジトリのGHAS有効化
+- [ ] Exercise 2 - Dependabot
+- [ ] Exercise 3 - Dependancy Review
+- [ ] Exercise 4 - Secret Scanning と Push Protection
+- [ ] Exercise 5 - Secret Scanning - Custom Secret Scanning Pattern + Push protection
+- [ ] Exercise 6 - Code Scanning と CodeQL
 
 ## GHAS Enablement
 
-### Exercise 1 - Enabling GHAS on your repository (10 minutes)
+### Exercise 1 - リポジトリのGHAS有効化 (10分)
 
-### Enabling Dependabot alerts
+### Dependabot alertsの有効化
 
-Dependabot can be enabled in the settings of an organization or a repository.
+Dependabot は、Organizationまたはリポジトリの設定で有効にすることができます。
 
-- Go to the repository settings and enable Dependabot alerts in the `Code security and analysis` section. You will be prompted to enable the dependency graph if it's not enabled already.
+- リポジトリの設定に行き、`Code security and analysis` セクションで Dependabot alerts を有効にしてください。dependency graphがまだ有効になっていない場合は、有効にするようプロンプトが表示されます。
 
-### Reviewing the dependency graph
+### Dependency graph（依存関係グラフ）のレビュー
 
-Dependabot uses the dependency graph to determine which dependencies are used by your project.
+- 依存関係グラフで、以下の依存関係が見つかったことを確認しましょう：
+    - frontend service
+    - authentication service
+    - gallery service
+    - storage service
 
-- Verify in the dependency graph that it found dependencies for:
-    - The frontend service.
-    - The authentication service.
-    - The gallery service.
-    - The storage service.
+依存関係グラフは、リポジトリの `Insights` タブからアクセスできます。
 
-The dependency graph can be accessed from the `Insights` tab in your repository.
+### 結果の閲覧と管理
 
-### Viewing and managing results
+数分後、リポジトリの `Security` タブに、新しいセキュリティ警告があることが表示されます。このボタンをクリックすると、脆弱な依存関係を更新するプルリクエスト (PR) が作成されます。このボタンをクリックすると、脆弱性のある依存関係を更新するプルリクエスト (PR) が作成されます。次のセクションでは、該当するすべての Dependabot アラートのセキュリティ更新を有効にする方法を説明します。
 
-After a few minutes, the `Security` tab in the repository will indicate that there are new security alerts. You will see a **Create a security update** button; click this button to create a pull request (PR) to update the vulnerable dependency. The next section will show you how to enable security updates for all applicable Dependabot alerts.
+**注意 次のセクションでは、該当する Dependabot アラートのセキュリティアップデートを有効にする方法を説明します。
 
-**Note**: If this not the case, we can trigger an analysis by updating `authn-service/requirements.txt`
+1. Dependabot アラート セクションに移動して、検出された依存関係の問題を表示します。
 
-1. Go to the Dependabot alert section to view the detected dependency issues.
+各依存性アラートに対して、セキュリティ更新プログラムを作成するか、理由とともにアラートを解除するオプションがあります。
 
-For each dependency alert, we have the option to create a security update or to dismiss the alert with a reason.
+2. アラートの 1 つについて、依存関係のセキュリティ更新を作成します。Dependabot が依存関係を自動的に更新できる場合、PR を作成します。
 
-2. For one of the alerts, create a dependency security update. If Dependabot can update the dependency automatically, it will create a PR.
+3. アラートの 1 つについて、アラートを却下します。
 
-3. For one of the alerts, dimiss the alert.
+### Dependabot security updatesの有効化
 
-### Enabling Dependabot security updates
+Dependabot は、脆弱な依存関係を脆弱でないバージョンにアップグレードするための PR を自動的に作成することができます。Dependabot のアラートの中には、パッチがないものがあるかもしれないことに注意してください。そのような場合、セキュリティアップデートは利用できません。
 
-Dependabot can automatically create PRs to upgrade vulnerable dependencies to non-vulnerable versions. Please note that there may be some Dependabot alerts that don't have patches. In those cases, a security update is not available.
+- リポジトリ設定に移動し、*Code security & analysis*セクションでDependabot security updatesを有効にしてください。
 
-- Go to the repository settings and enable Dependabot security updates in the *Code security & analysis* section.
+数分後、脆弱な依存関係をアップグレードする複数の PR が作成されます。
 
-After a few minutes multiple PRs will be created that will upgrade vulnerable dependencies.
+### GitHub Adanced securityの有効化
 
-### Enabling GitHub Adanced security
+#### リポジトリ　レベル
 
-#### Repo Level
+これまで GHAS ライセンスは消費されていませんでした。それでは、GitHub Advanced Security を有効にしましょう。リポジトリの設定の`Code security and analysis`セクションに戻ります。
 
-Up until now GHAS licenses were not consumed. Let's go to enabling GitHub Advanced Security now. Navigate back to `Code security and analysis` section in the Settings of your repository. 
+すると、Dependabot オプションのすぐ下に`GitHub Advanced Security`セクションがあることに気づくでしょう。`Enable`ボタンをクリックします。この操作を確認するモーダルが表示されます。`Enable GitHub Advanced Security` ボタンをクリックして確定します。モーダルでは、消費されるライセンス数 (GitHub Advanced Security のシート数) についての情報も表示されます。消費されるシート数は、リポジトリのアクティブなコミッター数と同じです。
 
-You will notice the `GitHub Advanced Security` section right under the Dependabot options which you already enabled. Go ahead and click on the `Enable` button. A modal will pop-up asking you to confirm the action. Click on `Enable GitHub Advanced Security` button to confirm the action. In the modal you will also notice information about how many licenses (GitHub Advanced Security seats) will be consumed. The number of seats consumed is equal to the number of active committers in your repository.
+GitHub Advanced Security を有効にすると、`Code scanning alerts` セクションのオプションが増えたことに気づくでしょう。その前に、GitHub Advanced Security を有効にする他の方法を探ってみましょう。
 
-After enabling GitHub Advanced Security you will notice that the `Code scanning alerts` section has been expanded with more options. Before proceeding to those we want to explore the other ways how GitHub Advanced Security can be enabled.
+#### Organization レベル
 
-#### Organization Level
+リポジトリレベルと同様に、`Code security and analysis` に移動してください。リポジトリレベルとほとんど同じように表示されます。大きな違いはありません：
 
-Similar to the repository level, navigate to the `Code security and analysis` but on your Organization Settings page. You will notice almost the same view as on the repository level. Few noticable differences:
+- `Enable All` / `Disable All` ボタンが存在します
+- チェックボックスオプション `Automatically enable for new private and internal repositories`. このオプションは、organization内で新しく作成されたPrivateリポジトリやInternalリポジトリに対して自動的に GitHub Advanced Security を有効にします。この機能を有効にすると便利ですが、GHAS ライセンスを考慮する必要があります。
 
-- You have the `Enable All` / `Disable All` button.
-- Additional checkbox option `Automatically enable for new private and internal repositories`. This option will automatically enable GitHub Advanced Security for all new private and internal repositories created in your organization. Turning this feature is useful but it should be accompanied with GHAS license consideration.
-
-NOTE: DO NOT click the `Enable All` button if you are organization admin. We will follow the repo level enablement in this workshop
+注意: organizationの管理者である場合は、`Enable All` ボタンをクリックしないでください。このワークショップでは、リポジトリレベルの有効化について説明します。
 
 ## How does it work?
 
-### Exercise 2 - Dependabot configuration (10 minutes)
+### Exercise 2 - Dependabot 構成 (10分)
 
-#### Configuring Dependabot version updates
+#### Dependabot version updatesの構成
 
-You can enable Dependabot [*version updates*](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/enabling-and-disabling-version-updates) by checking in a dependabot.yml into your repository's `.github` directory. Dependabot security updates uses this configuration as well. To successfully integrate the security updates into the SDLC, it is possible to configure various aspects such as:
+リポジトリの `.github` ディレクトリに dependabot.yml をチェックインすることで、Dependabot [*version updates*](https://docs.github.com/ja/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/enabling-and-disabling-version-updates) を有効にできます。Dependabot セキュリティアップデートは、この設定も使用します。セキュリティアップデートを SDLC にうまく統合するために、以下のようなさまざまな点を設定することができます：
 
-- When version updates are created.
-- What labels are assigned to enable filtering options.
-- Who is assigned to the PR and who should review it.
-- Which dependencies are updated and how they are updated.
+- いつバージョン更新が作成されるか。
+- フィルタリングオプションを有効にするために、どのようなラベルを割り当てるか。
+- 誰が PR を担当し、誰がレビューすべきか。
+- どの依存関係をどのように更新するか。
 
-Create the `.github/dependabot.yml` file in your repository and configure the `pip` dependency manager to:
-  1. Look for dependency information in the `authn-service` directory.
+`.github/dependabot.yml`ファイルをリポジトリに作成し、`pip`依存性マネージャーを以下のように設定します：
+  1. `authn-service` ディレクトリで依存情報を探します。
 
-  2. Schedule daily version updates.
+  2. 毎日のバージョン更新をスケジュールします。
 
-  3. Prefix the commit message with the `pip` package manager.
+  3. コミットメッセージの先頭に `pip` パッケージマネージャーを付けます。
 
-  4. Assign the PR to yourself and a person from your workshop team as a reviewer. When specifying GitHub handles in the yml, do so without the `@` symbol. Please see the following solution as an example.
+  4. 自分自身とワークショップチームの一人をレビュアーに任命する。ymlでGitHubハンドルを指定するときは、`@`記号を使わないでください。例として以下のソリューションをご覧ください。
 
-  5. Add the custom label `triage-required` to enable filtering of the PRs.
+  5. PR のフィルタリングを有効にするために、カスタムラベル `triage-required` を追加します。(カスタムラベルは先にPR画面で作成してください。)
 
-  6. Verify your changes by adding a [vulnerable dependency](https://github.com/advisories?query=severity%3Ahigh+ecosystem%3Apip) to `auth-service/requirements.txt`. For example:
+  6. [vulnerable dependency](https://github.com/advisories?query=severity%3Ahigh+ecosystem%3Apip)を `auth-service/requirements.txt` に追加して、変更を検証してください。例えば
 
     ```requirements.txt
     ...
     django==2.1.0
     ```
 
-How would you know if the configuration cannot be satisfied?
+コンフィギュレーションが満足できないかどうかは、どのように判断するのでしょうか。
 
-1. Add a non-existing label to the configuration.
+1. コンフィギュレーションに存在しないラベルを追加します。
 
-2. Trigger a new dependabot security update by adding a vulnerable dependency to one of the projects.
-   For example, we can add the dependency `django-two-factor-auth==1.11` to `auth-service/requirements.txt`
+2. プロジェクトの1つに脆弱な依存関係を追加することで、新しい dependabot セキュリティ更新をトリガーします。
+   例えば、依存関係 `django-two-factor-auth==1.11` を `auth-service/requirements.txt` に追加します。
 
-3. Look at the created PR to determine if the configuration has been satisfied.
+3. 作成された PR を見て、設定が満たされているかどうかを判断します。
 
-4. Use Dependabot chat commands to [manage PRs from Dependabot](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/managing-pull-requests-for-dependency-updates).
+4. Dependabot チャットコマンドを使って [Dependabot から PR を管理する](https://docs.github.com/ja/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/managing-pull-requests-for-dependency-updates).
 
 <details>
 <summary>Solution</summary>
@@ -137,9 +135,9 @@ updates:
 
 ### _Stretch_ Grouping Dependabot PRs
 
-Earlier this year we launched a way to [group version updates](https://github.blog/changelog/2023-06-30-grouped-version-updates-for-dependabot-public-beta/) into PRs.
+2023年6月に[group version updates](https://github.blog/changelog/2023-06-30-grouped-version-updates-for-dependabot-public-beta/) をPRにまとめる方法を開始しました。
 
-This can be configured via the same `dependabot.yml` file that you used up until now. Here's an example:
+これは今までと同じ `dependabot.yml` ファイルを使って設定することができます。以下に例を示します：
 
 ```yaml
 version: 2
@@ -163,27 +161,27 @@ version: 2
           - "aws-sdk"
 ```
 
-You can find more details about the `groups` configuration option in the [documentation](https://docs.github.com/en/enterprise-cloud@latest/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file).
+設定オプション `groups` の詳細については [オンラインドキュメント](https://docs.github.com/en/enterprise-cloud@latest/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file) を参照してください。
 
-How can you update your dependabot.yml configuration to group all `npm` development dependencies into a PR called `dev-dependencies` in future?
+dependabot.ymlの設定を更新して、今後すべての `npm` 開発用依存関係を `dev-dependencies` というPRにグループ化するにはどうすればいいかも考えて見ましょう。
 
-### Exercise 3 - Dependancy Review (10 minutes)
+### Exercise 3 - Dependancy Review (10分)
 
-### Create a new workflow
+### ワークフローの作成
 
-1. Navigate to https://github.com/actions/dependency-review-action and copy the Basic Usage workflow from [docs/examples.md](https://github.com/actions/dependency-review-action/blob/main/docs/examples.md#basic-usage)
-2. Create file in `.github/workflows`. Name it `dependancy-review.yml`.
-3. Paste the contents of the workflow file and save it to your default brain `main`. 
+1. https://github.com/actions/dependency-review-action を参照し、[docs/examples.md](https://github.com/actions/dependency-review-action/blob/main/docs/examples.md#basic-usage)からBasic Usageワークフローをコピーします。
+2. `.'github/workflows` にファイルを作成します。ファイル名を `dependancy-review.yml` とします。
+3. ワークフローファイルの内容を貼り付け、デフォルトのBranch `main` に保存します。
 
-### Trigger an action run in PR
+### PRでActionをトリガーする
 
-Now you have added the Dependancy Review action yor repo. To test it:
+これで Dependancy Review アクションがリポジトリに追加されました。テストするには；
 
-1. Navigate to https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip
-2. Pick a pip vulnerable dependancy with severity `high` or higher. For example: https://github.com/advisories/GHSA-rwmf-w63j-p7gv
-3. Edit the `authn-service/requiremnts.txt` file and add the new vulnerable dependancy.
-4. **When committing do commit to a new branch**
-5. Open a PR against the main branch `main` and observe the result.
+1. https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip に移動します。
+2. 深刻度 `high` 以上の pip の脆弱な依存関係を選択します。例：https://github.com/advisories/GHSA-rwmf-w63j-p7gv
+3. `authn-service/requiremnts.txt` ファイルを編集し、新しい脆弱な依存関係を追加します。
+4. **コミットする際は、新しいブランチにコミットしてください。**
+5. メインブランチ `main` に対して PR をオープンし、結果を観察します。
 
 <details>
 
@@ -221,16 +219,16 @@ cairosvg=2.6.0
 
 
 
-### Custom configuration
+### カスタム構成
 
-Next we would like to customize the configuration to meet our policy:
+次に、例えば下記のポリシーに合うように設定をカスタマイズしたい：
 
-- Fail on vulnerabilities with severity `high` and above.
-- Only allow dependencies with `BSD-2-Clause` and `LGPL-2.0` licenses.
+- 深刻度 `high` 以上の脆弱性に対しては失敗する。
+- `BSD-2-Clause` と `LGPL-2.0` ライセンスの依存関係のみを許可する。
 
-And we would also make the experience better and show the results of the check directly in the PR.
+また、PR に直接チェックの結果を表示することで、より良いエクスペリエンスを提供します。
 
-Check the available configuraiton parameters in the the README of the Dependancy Review action repository. You will find `fail-on-severity`, `allow-license` and `comment-summary-in-pr` options. Use them to adjust your workflow file and test the results.
+利用可能な設定パラメータを Dependancy Review アクションリポジトリの README で確認してください。`fail-on-severity`、`allow-license`、`comment-summary-in-pr` オプションがあります。これらを使用してワークフローファイルを調整し、結果をテストしてください。
 
 <details>
 <summary>Solution</summary>
@@ -263,52 +261,54 @@ jobs:
 
 </details>
 
-### Exercise 4 - Secret Scanning and Push Protection (10 mins)
+### Exercise 4 - Secret Scanning と Push Protection (10分)
 
-### Enabling secret scanning
+### Secret scanningの有効化
 
-Secret scanning can be enabled in the settings of an organization or a repository. If Advanced Security is not enabled yet, then enable that first (same settings screen).
+Secret scanningは、組織またはリポジトリの設定で有効にできます。Advanced Securityがまだ有効になっていない場合は、まずそれを有効にしてください（同じ設定画面）。
 
-1. Go to the repository settings and enable secret scanning in the `Code security and analysis` section.
+1. リポジトリ設定に移動し、`Secret scanning`セクションでSecret scanningを有効にします。
 
-NOTE: Do not enable `Push protection`, yet.
+注: まだ `Push protection` を有効にしないでください。
 
-### Viewing and managing secret scanning results
+### Secret scanning 結果の表示と管理
 
-After a few minutes, the `Security` tab in the repository will indicate that there are new security alerts.
+数分後、リポジトリの `Security` タブに新しいセキュリティ警告があることが表示されます。
 
-- Go to the `Secret scanning` section to view the detected secrets.
+- 検出された秘密を見るには、`Secret scanning` セクションに移動してください。
 
-For each secret, look at the options to close it and determine which one is most suitable.
+それぞれの秘密について、それを閉じるためのオプションを見て、どれが最も適切かを判断してください。
 
-### Introducing a test secret
+### Test secretを追加して検出
 
-When developing test cases, you might find that secrets are introduced that cannot be abused when disclosed. Secret scanning will still detect and alert on these secrets.
+テストケースを開発する際、公開しても悪用できない秘密が導入されていることに気づくかもしれません。シークレットスキャンは、このようなシークレットを検出し、警告を発します。
 
-1. In the GitHub repository file explorer, create a test file that contains a test secret.
-    - For example the file `storage-service/src/main/resources/application.dev.properties` with the secrets
+1. GitHub リポジトリのファイルエクスプローラーで、テスト用のシークレットを含むテストファイルを作成します。
+    - 例えば、`storage-service/src/main/resources/application.dev.properties` というファイルにシークレットを記述します。
         ```
         STRIPE_NEW="sk_live_devboxbcct1DfwS2ClCIKlzP"
         ```
-2. Determine if the secret is detected when the file is stored.
-3. How would you like to manage results from test files?
+2. ファイルが保存されたときにシークレットが検出されるかどうかを判断します。
+3. テストファイルの結果をどのように管理すべきでしょうか。
 
-### Excluding files from secret scanning
+### Secret scanningからファイルを除外する
 
-While we can close a detected secret as being used in a test, we can also configure secret scanning to exclude files from being scanned.
+検出されたシークレットをテストで使用されているものとしてクローズすることもできますが、シークレットスキャンを設定してスキャン対象からファイルを除外することもできます。
 
-1. Create the file `.github/secret_scanning.yml` if it doesn't already exist.
-2. Add a list of paths to exclude from secret scanning. You can use [filter patterns](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet) to specify paths.
+1. `.github/secret_scanning.yml`ファイルが存在しない場合は作成してください。
+2. 秘密スキャンから除外するパスのリストを追加する。パスを指定するには、[filter patterns](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet) を使用してください。
+
     ```yaml
     paths-ignore:
         - '**/test/**'
         - 'exercises/**'
     ```
-    **Note**: The characters `*`, `[`, and `!` are special characters in YAML. If you start a pattern with `*`, `[`, or `!`, you must enclose the pattern in quotes.
+**注意**： 文字 `*`、`[`、`!` パターンを `*`, `[`, `!` で始める場合は、パターンを引用符で囲む必要があります。
 
-    Use a pattern to exclude the file `storage-service/src/main/resources/application.dev.properties`
+パターンを使って `storage-service/src/main/resources/application.dev.properties` ファイルを除外してください。
 
-    Merge your changes to `.github/secret_scanning.yml` to your default branch before going to the next step.
+次のステップに進む前に、`.github/secret_scanning.yml` への変更をデフォルトブランチにマージしてください。
+
 
     <details>
     <summary>Solution</summary>
@@ -321,55 +321,56 @@ While we can close a detected secret as being used in a test, we can also config
     ```
     </details>
 
-3. Test the pattern by adding another secret or to the file `storage-service/src/main/resources/application.dev.properties`
+3. 別のシークレットを追加するか、`storage-service/src/main/resources/application.dev.properties` ファイルに追加してパターンをテストします。
 
-    For example change the `secretKey` to
+     `secretKey` のサンプル
     ```
     STRIPE_NEW="sk_live_devboxbcct1DfwS2ClCIKlbN"
     ```
 
-### Enabling Push Protection
+### Push Protectionの有効化
 
-To enable `Push Protection` navigate back to `Code security and analysis` and click the `Enable` button under Secret Scanning. 
+`Push Protection`を有効にするには、`Code security and analysis`に戻り、`Secret Scanning`の下にある`Enable`ボタンをクリックします。
 
-### Introdocuing a new secret
+### New secretを追加して検証
 
-Follow the similar steps as before try to push a new commit that contains a secret:
+先ほどと同様の手順で、Secretを含む新しいコミットをプッシュしてみましょう：
 
-- Create a new branch in your repository
-- In the UI, Edit the `authn-service/authn-service.py` and try to add a new secret
+- リポジトリに新しいブランチを作成します
+- UI で `authn-service/authn-service.py` を編集し、新しい secret を追加します。
         ```
         STRIPE_NEW="sk_live_devboxbcct1DfwS2ClCIKlmY"
         ```
-- If you want to still push you would need to follow the steps to bypass the push protection in the modal.
+- それでもプッシュしたい場合は、モーダルでプッシュ保護をバイパスする手順を実行する必要があります。
 
-Question: What would happen if you try to push the secret from your local machine using your git client (or your favourite IDE)? 
+質問 git クライアント (あるいはお気に入りの IDE) を使ってローカルマシンから secret をプッシュしようとするとどうなるでしょうか? 
 
-As an extra exercises go ahead and try pushing the following secret to the repository.
+追加の練習として、次のシークレットをリポジトリにプッシュしてみてください。
+
 ```
 STRIPE_NEW="sk_live_devboxbcct1DfwS2ClCIKllL"
 ```
 
 ---
 
-### Exercise 5 - Secret Scanning - Custom Secret Scanning Pattern + Push protection (15 mins)
+### Exercise 5 - Secret Scanning - Custom Secret Scanning Pattern + Push protection (15分)
 
-### Custom patterns for secret scanning
+### Secret ScanningのためのCustom patterns
 
-Secret scanning supports finding other [secret patterns](https://docs.github.com/en/code-security/secret-security/defining-custom-patterns-for-secret-scanning), which are specified by regex patterns and use the Hyperscan library.
+Secret Scanningは他の[シークレットパターン](https://docs.github.com/en/code-security/secret-security/defining-custom-patterns-for-secret-scanning)を見つけることをサポートします。シークレットパターンは正規表現パターンによって指定され、Hyperscanライブラリを使用します。
 
-1. Add a custom secret pattern by going to the `Code security and analysis` settings and under the header "Custom patterns" click on `New pattern`.
-2. Add a custom pattern name, a secret format and test cases.   For example:
+1. `Code security and analysis`の設定に行き、"Custom patterns"のヘッダーの下にある `New pattern`をクリックして、カスタムのシークレットパターンを追加します。
+2. カスタムパターン名、シークレットフォーマット、テストケースを追加します。  例えば下記のとおりです；
 ```
 Custom pattern name: My secret pattern
 Secret format: my_custom_secret_[a-z0-9]{3}
 Test string: my_custom_secret_123
 ```
-3. Save your pattern and observe the secret scanning alerts page to see if your custom secret pattern has been detected.
+3. パターンを保存し、Secret Scanningのアラートページでカスタムシークレットパターンが検出されたかどうかを確認します。
 
-### Another Secret Scanning pattern for internal token
+### Internal Tokenのためのもう一つのSecret Scanningのカスタムパターン
 
-Let's work on detecting the following secret:
+次の秘密の検出に取り組んでみましょう:
 
 ```text
 NBS_1: # Secret Scanning Custom Pattern  
@@ -400,33 +401,33 @@ NBS_tkn_19[a-z]{9}#[a-zA-Z0-9]{10}//tkn
 ```
 </details>
 
-After creating and publishing the custom pattern go ahead and select the `Push protection` checkbox to add the pattern to the Push Protection scans. After enabling it 
+カスタムパターンを作成し、公開したら、`Push protection` チェックボックスを選択し、Push Protection スキャンにパターンを追加します。
 
 ---
 
-### Exercise 6 - Code Scanning and CodeQL (15 mins)
+### Exercise 6 - Code Scanning と CodeQL (15分)
 
-### Enabling code scanning
+### Code scanningの有効化
 
-1. On the `Security` tab, in the **Vulnerability alerts** section, click **Code scanning**, and then click the **Configure scanning tool** button. You will be directed to the `Code security and analysis` section of the repository settings. Click the drop down button **Set up** which provides two choices (Default, Advanced) - please select **Advanced** for this lab in order to generate the CodeQL related workflow file.
+1. `Security` タブの **Vulnerability alerts** セクションで **Code scanning** をクリックし、**Configure scanning tool** ボタンをクリックします。リポジトリ設定の`Code security and analysis`セクションに移動します。このラボでは、CodeQL 関連のワークフロー ファイルを生成するために **Advanced** を選択してください。
 
-2. Review the created Action workflow file `codeql-analysis.yml` and choose `Start commit` to accept the default proposed workflow.
+2. 作成されたActionワークフローファイル`codeql.yml`を確認し、`Start commit`を選択してデフォルトのワークフロー案を受け入れます。
 
-3. Head over to the `Actions` tab to see the created workflow in action. Click on the workflow to view details and status for each analysis job.
+3. 作成されたワークフローを見るために、`Actions`タブに移動します。ワークフローをクリックすると、各解析ジョブの詳細とステータスが表示されます。
 
-### Reviewing any failed analysis job
+### 失敗した分析Jobをレビューする
 
-CodeQL requires a build of compiled languages. An analysis job can fail if our *autobuilder* is unable to build a program to extract an analysis database.
+CodeQL はコンパイルされた言語のビルドを必要とします。*autobuilder*が分析データベースを抽出するプログラムをビルドできない場合、分析ジョブが失敗することがあります。
 
-1. Inside the workflow, you'll see a list of jobs on the left. Click on the Java job to view the logging output and review any errors to determine if there's a build failure.
+1. ワークフロー内では、左側にジョブのリストが表示されます。Java ジョブをクリックしてログ出力を表示し、ビルドに失敗したかどうかを判断するためにエラーを確認します。
 
-2. The `autobuild` compilation failure appears to be caused by a JDK version mismatch. Our project targets JDK version 15. How can we check the Java version that the GitHub hosted runner is using? Does the logging output provide any helpful information?
-detailsYou could either check what is documented on the [runner-images](https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md) repository, or you can debug your self by executing another run.
+2. `autobuild`コンパイルの失敗は、JDKバージョンの不一致が原因のようです。私たちのプロジェクトはJDKバージョン15をターゲットにしています。GitHub がホストしているランナーが使っている Java のバージョンはどうやって確認できるでしょうか。ログの出力から何か役に立つ情報は得られますか。
+詳細[runner-images](https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md)リポジトリに記載されている内容を確認するか、別の実行を実行して自分でデバッグすることができます。
 
     <details>
     <summary>Solution</summary>
 
-    - GitHub saves workflow files in the `.github/workflows` directory of your repository. You can add a command to the existing `codeql-analysis.yml` workflow to output the Java version.  Add this anywhere before the step that is failing to help in your debugging:
+    - GitHub はワークフローファイルをリポジトリの `.github/workflows` ディレクトリに保存します。既存の `codeql.yml` ワークフローに Java バージョンを出力するコマンドを追加することができます。 デバッグに役立つように、失敗しているステップの前のどこかに追加してください：
 
     ```yaml
     - run: |
@@ -434,11 +435,11 @@ detailsYou could either check what is documented on the [runner-images](https://
         java -version
     ```
 
-    In any case you will conclude that the version is bellow 15. So, you will need to setup the correct version of Java in the runner for the build to succeed. 
+  いずれにせよ、バージョンは15以下であると結論づけられるでしょう。したがって、ビルドを成功させるためには、ランナーでJavaの正しいバージョンをセットアップする必要があります。
 
     </details>
 
-3. The previous debugging has concluded that we have a mismatch.  Resolve the JDK version issue by using the `setup-java` Action in `codeql-analysis.yml` to explicitly specify a version.  This should be added to the workflow before the `autobuild` step to properly configure the runtime environment before the build.
+3. これまでのデバッグで、ミスマッチがあると結論づけられました。 `codeql.yml`の `setup-java` アクションを使用して明示的にバージョンを指定することで、JDKのバージョンの問題を解決します。 これは `autobuild` ステップの前にワークフローに追加して、ビルド前に実行環境を適切に設定する必要があります。
 
     <details>
     <summary>Solution</summary>
@@ -450,14 +451,14 @@ detailsYou could either check what is documented on the [runner-images](https://
     ```
     </details>
 
-### Using context and expressions to modify build
+### Context と Expressions を利用してビルドを修正
 
-How would you [modify](https://docs.github.com/en/free-pro-team@latest/actions/reference/context-and-expression-syntax-for-github-actions) the workflow such that the autobuild step only targets compiled languages (`java` in our repository)?
+自動ビルドステップがコンパイル済み言語（私たちのリポジトリでは`java`）のみを対象とするように、ワークフローをどのように[修正](https://docs.github.com/en/free-pro-team@latest/actions/reference/context-and-expression-syntax-for-github-actions)するのでしょうか。
 
 <details>
 <summary>Solution</summary>
 
-You can run this step for only `Java` analysis when you use the `if` expression and `matrix` context.
+`if` と `matrix` コンテキストを使用すると、このステップを `Java` 分析に対してのみ実行することができます。
 
 ```yaml
 - if: matrix.language == 'java-kotlin'  
@@ -465,26 +466,26 @@ You can run this step for only `Java` analysis when you use the `if` expression 
 ```
 </details>
 
-### Reviewing and managing code scanning results
+### Code scanning 結果のレビュー
 
-1. On the `Security` tab, view the `Code scanning alerts`.
+1. `Security`タブで、`Code scanning alerts`を表示します。
 
-2. For a result, determine:
-    1. The issue reported.
-    2. The corresponding query id.
-    3. Its `Common Weakness Enumeration` identifier.
-    4. The recommendation to solve the issue.
-    5. The path from the `source` to the `sink`. Where would you apply a fix?
-    6. Is it a *true positive* or *false positive*?
+2. 結果について判断しましょう：
+    1. 報告された問題
+    2. 対応するクエリID
+    3. `Common Weakness Enumeration` （CWE）識別子
+    4. 問題を解決するための推奨事項
+    5. `source`から`sink`までのパス。どこに修正を適用しますか。
+    6. *真陽性*（*true positive*）ですか*偽陽性*（*false positive*）ですか。
 
-### Triaging a result in a PR
+### PRでの結果トリアージ
 
-The default workflow configuration enables code scanning on PRs.
-Follow the next steps to see it in action.
+デフォルトのワークフロー設定では、PRのCode Scanningが有効になっています。
+次のステップに従って、実際の動作を確認してください。
 
-1. Add a vulnerable snippet of code and commit it to a patch branch and create a PR.
+1. コードの脆弱なスニペットを追加し、Patch BranchにコミットしてPRを作成します。
 
-    Make the following change in `frontend/src/components/AuthorizationCallback.vue:27`
+    `frontend/src/components/AuthorizationCallback.vue:27` ファイルを変更してください。
 
     ```javascript
      - if (this.hasCode && this.hasState) {
@@ -492,14 +493,14 @@ Follow the next steps to see it in action.
      + if (this.hasCode && this hasState) {
     ```
 
-2. Is the vulnerability detected in your PR?
+2. PR で脆弱性が検出されるでしょうか。
 
-3. You can also configure the check failures for code scanning. Go into the `Code security and analysis` settings and modify the Check Failures. Set it to `Only critical/ Only errors` and see how that affects the code scanning status check for subsequent PR checks. In the next steps, you will be enabling additional query suites that have other severity types.
+3. Code Scanningのチェックの失敗を設定することも可能です。`Code security and analysis`の設定で、`Check Failures`を変更してください。この設定を `Only critical/Only errors`に設定し、その後の PR のチェックでコードスキャンの状態チェックにどのような影響があるか確認してください。次のステップでは、他の重大度タイプを持つ追加のクエリスイートを有効にします。
 
 #### _Stretch Exercise: Fixing false positive results_
 
-If you have identified a false positive, how would you deal with that? What if this is a common pattern within your applications?
+偽陽性（False Positive）を確認した場合、どのように対処しますか。これがアプリケーション内でよくあるパターンだとしたらどうしますか。
 
 #### _Stretch Exercise: Enabling code scanning on your own repository_
 
-So far you've learned how to enable Dependabot, secret scanning, and code scanning. Try enabling this on your own repository, and see what kind of results you get!
+Dependabot、シークレットスキャン、コードスキャンを有効にする方法を学びました。ご自身のリポジトリで各機能を有効にしてみて、どのような結果が得られるか試してみてください。
