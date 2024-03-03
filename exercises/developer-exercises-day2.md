@@ -32,7 +32,7 @@
         queries:
             - uses: <insert your query suite>
         ```
-2. Code scanning workflow file `.github/codeql/codeql-config.yml` でカスタム設定を有効にします。
+2. Code scanning ワークフローファイル `.github/codeql/codeql-config.yml` でカスタム設定を有効にします。
 
     **Hints**
 
@@ -42,7 +42,7 @@
 
 ### 除外ルールに独自のコードスキャンスイートを追加
 
-実行されるクエリーは、ターゲット言語のコード・スキャン・スイートによって決定されます。
+実行されるクエリーは、ターゲット言語のコードスキャンスイートによって決定されます。
 独自のコードスキャンスイートを作成して、含まれるクエリーのセットを変更することができます。
 
 独自の[コードスキャンスイート](https://codeql.github.com/docs/codeql-cli/creating-codeql-query-suites/)を作成することで、Javaプロジェクトで誤検出を引き起こしたルールを除外することができます。
@@ -142,7 +142,7 @@ _CodeQLを使用した経験があり、これまでに独自のクエリを作�
 
     このファイルは、クエリーファイルとその依存関係を整理するために使用される[QLクエリーパック](https://help.semmle.com/codeql/codeql-cli/reference/qlpack-overview.html)を作成します。
 
-2. Then, create the actual query file. For example, `custom-queries/go/jwt.ql` with the contents
+2. クエリーファイルを作成します。例えば下記のコンテンツを含む `custom-queries/go/jwt.ql` ファイルを作成します。
 
     ```ql
     /**
@@ -358,7 +358,7 @@ jobs:
 
 ファイルをコミットすると、`Actions`タブに新しいワークフローが表示されます。
 
-### new checkov runをトリガー
+### checkov runをトリガー
 
 新しいcheckovの実行をトリガーするには、新しいブランチを作成して`terraform/aws/lambda.tf`ファイルを編集し、以下のスニペットを追加します：
 
