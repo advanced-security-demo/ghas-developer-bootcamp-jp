@@ -2,11 +2,11 @@
 
 ## Overview
 
-- [ ] [Exercise 7 - Customizing CodeQL Configuration](#exercise-7---customizing-codeql-configuration-15-mins)
-- [ ] [Exercise 8 - Run tool Checkov in PR and integrate in Code Scanning](#exercise-8---run-tool-checkov-in-pr-and-integrate-in-code-scanning-15-mins)
-- [ ] [Extra - CodeQL workflow optimization](#extra---codeql-workflow-optimization-10-mins)
-- [ ] [Exercise 9 -  Integrate Secret Scanning alerts in PR](#exercise-9---integrate-secret-scanning-alerts-in-pr-10-mins)
-- [ ] [Exercise 10 - Generate CodeQL debug and identify a problem](#exercise-10---generate-codeql-debug-and-identify-a-problem-15-mins)
+- [ ] Exercise 7 - CodeQL構成のカスタマイズ
+- [ ] 番外編 - CodeQLワークフローの最適化
+- [ ] Exercise 8 - PRでツールCheckovを実行し、Code Scanningへ統合
+- [ ] Exercise 9 -  PRへSecret Scanning alertsを統合
+- [ ] Exercise 10 - CodeQLデバッグの生成と問題の特定
 
 ## How does it work? (続き)
 
@@ -290,7 +290,7 @@ on:
 
 ## Integrations - GHAS API and Webhooks
 
-### Exercise 8 - PRでツールCheckovを実行し、ode Scanningに統合する。  (15分)
+### Exercise 8 - PRでツールCheckovを実行し、Code Scanningへ統合  (15分)
 
 この演習では、別のセキュリティテストツールの結果をCode Scanningに統合します。選んだツールは Checkov です。新しい GitHub Action ワークフローを作成し、そこでコードベースに対して Checkov スキャンを実行し、Code Scanning API を呼び出して結果を GitHub に報告します。
 
