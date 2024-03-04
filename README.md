@@ -5,8 +5,8 @@
 
 参考コマンドライン
 ```bash
-git clone https://github.com/ghas-bootcamp/ghas-bootcamp.git
-cd ghas-bootcamp
+git clone https://github.com/advanced-security-demo/ghas-developer-bootcamp-jp.git
+cd ghas-developer-bootcamp-jp
 git remote set-url origin git@github.com:{org-or-username}/{repo-name}.git
 ```
 
