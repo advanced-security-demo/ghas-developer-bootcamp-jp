@@ -275,9 +275,9 @@ Secret scanningは、組織またはリポジトリの設定で有効にでき�
 
 数分後、リポジトリの `Security` タブに新しいセキュリティ警告があることが表示されます。
 
-- 検出された秘密を見るには、`Secret scanning` セクションに移動してください。
+- 検出されたシークレットを見るには、`Secret scanning` セクションに移動してください。
 
-それぞれの秘密について、それを閉じるためのオプションを見て、どれが最も適切かを判断してください。
+それぞれのシークレットについて、それを閉じるためのオプションを見て、どれが最も適切かを判断してください。
 
 ### Test secretを追加して検出
 
@@ -309,10 +309,8 @@ Secret scanningは、組織またはリポジトリの設定で有効にでき�
 
 次のステップに進む前に、`.github/secret_scanning.yml` への変更をデフォルトブランチにマージしてください。
 
-
     <details>
     <summary>Solution</summary>
-    A possible solution is:
 
     ```yaml
     paths-ignore:
@@ -370,7 +368,7 @@ Test string: my_custom_secret_123
 
 ### Internal Tokenのためのもう一つのSecret Scanningのカスタムパターン
 
-次の秘密の検出に取り組んでみましょう:
+次のシークレットの検出に取り組んでみましょう:
 
 ```text
 NBS_1: # Secret Scanning Custom Pattern  
@@ -391,7 +389,6 @@ NBS_1: # Secret Scanning Custom Pattern
     NBS_tkn_19vtivfzjqx#4xr3zb15mx//tkn
     NBS_tkn_19yciuijoax#4xr3zb15mx//tkn
 ```
-
 <details>
 <summary>Solution</summary>
 
@@ -399,6 +396,7 @@ NBS_1: # Secret Scanning Custom Pattern
 </details>
 NBS_tkn_19[a-z]{9}#[a-zA-Z0-9]{10}//tkn
 ```
+
 </details>
 
 カスタムパターンを作成し、公開したら、`Push protection` チェックボックスを選択し、Push Protection スキャンにパターンを追加します。
@@ -426,29 +424,30 @@ CodeQL はコンパイルされた言語のビルドを必要とします。*aut
 
     <details>
     <summary>Solution</summary>
-
-    - GitHub はワークフローファイルをリポジトリの `.github/workflows` ディレクトリに保存します。既存の `codeql.yml` ワークフローに Java バージョンを出力するコマンドを追加することができます。 デバッグに役立つように、失敗しているステップの前のどこかに追加してください：
-
+    - GitHub はワークフローファイルをリポジトリの `.github/workflows` ディレクトリに保存します。既存の `codeql.yml` ワークフローに Java バージョンを出力するコマンドを追加することができます。 デバッグに役立つように、失敗しているステップの前のどこかに追加してください。
+        
     ```yaml
-    - run: |
+    - name: Version
+      run: |
         echo "java version"
         java -version
     ```
-
-  いずれにせよ、バージョンは15以下であると結論づけられるでしょう。したがって、ビルドを成功させるためには、ランナーでJavaの正しいバージョンをセットアップする必要があります。
-
+  　　　　いずれにせよ、バージョンは15以下であると結論づけられるでしょう。したがって、ビルドを成功させるためには、ランナーでJavaの正しいバージョンをセットアップする必要があります。
     </details>
 
 3. これまでのデバッグで、ミスマッチがあると結論づけられました。 `codeql.yml`の `setup-java` アクションを使用して明示的にバージョンを指定することで、JDKのバージョンの問題を解決します。 これは `autobuild` ステップの前にワークフローに追加して、ビルド前に実行環境を適切に設定する必要があります。
 
     <details>
     <summary>Solution</summary>
+        
     ```yaml
-      - uses: actions/setup-java@v3
-        with:
-            java-version: 16
-            distribution: 'microsoft'
+    - name: Java Setup
+      uses: actions/setup-java@v3
+      with:
+        java-version: 16
+        distribution: 'microsoft'
     ```
+    
     </details>
 
 ### Context と Expressions を利用してビルドを修正
