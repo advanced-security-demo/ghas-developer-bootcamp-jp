@@ -509,15 +509,15 @@ ActionでCodeQLのデバッグモードを有効にするもう1つの方法は�
 
 <details>
 <summary>Solution</summary>
-- 解析に使用したCodeQL CLIのバージョンはいくつでしょうか。
-    - `CodeQL CLI version: 2.15.1`
-- 解析はどのようなコードベースで実行されましたか。
-    - `C or Cpp`, as can be guessed from the filename, but also the extractor used, or the `codeql-database.yml` file.
-- 解析は正常に完了しましたか。完了しなかった場合、その理由は何ですか。
-    - No, the analysis failed because `No supported build system detected`, as it can be seen in the extractor diagnostic message.
-    - Digging further in, we can also see that there were indeed empty source directories without code or build systems.
-- この解析のためにどの CodeQL クエリーが構成されたかを特定できますか。
-    - The files `config-queries.qls` give us the list of queries that were configured for this analysis.
+- 解析に使用したCodeQL CLIのバージョンはいくつでしょうか。<br>
+    - `CodeQL CLI version: 2.15.1`<br>
+- 解析はどのようなコードベースで実行されましたか。<br>
+    - `C or Cpp`, as can be guessed from the filename, but also the extractor used, or the `codeql-database.yml` file.<br>
+- 解析は正常に完了しましたか。完了しなかった場合、その理由は何ですか。<br>
+    - No, the analysis failed because `No supported build system detected`, as it can be seen in the extractor diagnostic message.<br>
+    - Digging further in, we can also see that there were indeed empty source directories without code or build systems.<br>
+- この解析のためにどの CodeQL クエリーが構成されたかを特定できますか。<br>
+    - The files `config-queries.qls` give us the list of queries that were configured for this analysis.<br>
 </details>
 
 ### Tool Statusの利用
